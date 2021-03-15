@@ -47,6 +47,7 @@ import com.example.androiddevchallenge.ui.theme.MySootheTheme
 @Composable
 fun Login() {
     Surface(color = MaterialTheme.colors.background) {
+
         Box(modifier = Modifier.fillMaxSize()) {
             Image(
                 modifier = Modifier.fillMaxSize(),
@@ -59,11 +60,12 @@ fun Login() {
                 modifier = Modifier.align(Alignment.Center),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                var email by remember { mutableStateOf("") }
+                var password by remember { mutableStateOf("") }
+
                 Text(text = "LOG IN", style = MaterialTheme.typography.h1)
 
                 Spacer(modifier = Modifier.requiredHeight(32.dp))
-
-                var email by remember { mutableStateOf("") }
 
                 TextField(
                     modifier = Modifier
@@ -80,7 +82,8 @@ fun Login() {
                     textStyle = MaterialTheme.typography.body1,
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = MaterialTheme.colors.surface
-                    )
+                    ),
+                    singleLine = true,
                 )
 
                 Spacer(modifier = Modifier.requiredHeight(8.dp))
@@ -90,9 +93,9 @@ fun Login() {
                         .fillMaxWidth()
                         .requiredHeight(56.dp)
                         .padding(horizontal = 16.dp),
-                    value = email,
+                    value = password,
                     onValueChange = {
-                        email = it
+                        password = it
                     },
                     placeholder = {
                         Text(text = "Password")
@@ -100,7 +103,8 @@ fun Login() {
                     textStyle = MaterialTheme.typography.body1,
                     colors = TextFieldDefaults.textFieldColors(
                         backgroundColor = MaterialTheme.colors.surface
-                    )
+                    ),
+                    singleLine = true
                 )
 
                 Button(
