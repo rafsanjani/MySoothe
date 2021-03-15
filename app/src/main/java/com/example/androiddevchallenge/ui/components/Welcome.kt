@@ -26,7 +26,6 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -39,55 +38,53 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MySootheTheme
 
 @Composable
-fun Welcome() {
-    Surface(color = MaterialTheme.colors.background) {
-        Box(modifier = Modifier.fillMaxSize()) {
+fun Welcome(onSignUp: () -> Unit = {}, onLogIn: () -> Unit = {}) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.ic_welcome),
+            contentDescription = "Login Background",
+            contentScale = ContentScale.FillBounds
+        )
+
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            val buttonHeight = 72.dp
+            val padding = 16.dp
+
             Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = R.drawable.ic_welcome),
-                contentDescription = "Login Background",
-                contentScale = ContentScale.FillBounds
+                painter = painterResource(id = R.drawable.ic_logo),
+                contentDescription = "Logo Image"
             )
 
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                val buttonHeight = 72.dp
-                val padding = 16.dp
+            Button(
+                onClick = onSignUp,
+                modifier = Modifier
+                    .padding(top = padding * 2)
+                    .requiredHeight(buttonHeight)
+                    .fillMaxWidth()
+                    .padding(horizontal = padding),
+                shape = RoundedCornerShape(16.dp),
 
-                Image(
-                    painter = painterResource(id = R.drawable.ic_logo),
-                    contentDescription = "Logo Image"
+                ) {
+                Text(text = "SIGN UP")
+            }
+
+            Button(
+                onClick = onLogIn,
+                modifier = Modifier
+                    .padding(top = 8.dp)
+                    .requiredHeight(buttonHeight)
+                    .fillMaxWidth()
+                    .padding(horizontal = padding),
+                shape = RoundedCornerShape(16.dp),
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = MaterialTheme.colors.secondary
                 )
-
-                Button(
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(top = padding * 2)
-                        .requiredHeight(buttonHeight)
-                        .fillMaxWidth()
-                        .padding(horizontal = padding),
-                    shape = RoundedCornerShape(16.dp),
-
-                ) {
-                    Text(text = "SIGN UP")
-                }
-
-                Button(
-                    onClick = { },
-                    modifier = Modifier
-                        .padding(top = 8.dp)
-                        .requiredHeight(buttonHeight)
-                        .fillMaxWidth()
-                        .padding(horizontal = padding),
-                    shape = RoundedCornerShape(16.dp),
-                    colors = ButtonDefaults.buttonColors(
-                        backgroundColor = MaterialTheme.colors.secondary
-                    )
-                ) {
-                    Text(text = "LOG IN")
-                }
+            ) {
+                Text(text = "LOG IN")
             }
         }
     }

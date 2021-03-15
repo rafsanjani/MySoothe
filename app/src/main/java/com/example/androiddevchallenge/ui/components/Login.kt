@@ -26,7 +26,6 @@ import androidx.compose.foundation.layout.paddingFromBaseline
 import androidx.compose.foundation.layout.requiredHeight
 import androidx.compose.material.Button
 import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -45,85 +44,84 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MySootheTheme
 
 @Composable
-fun Login() {
-    Surface(color = MaterialTheme.colors.background) {
+fun Login(onLogin: (email: String, password: String) -> Unit) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        Image(
+            modifier = Modifier.fillMaxSize(),
+            painter = painterResource(id = R.drawable.ic_login),
+            contentDescription = "Login Background",
+            contentScale = ContentScale.FillBounds
+        )
 
-        Box(modifier = Modifier.fillMaxSize()) {
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                painter = painterResource(id = R.drawable.ic_login),
-                contentDescription = "Login Background",
-                contentScale = ContentScale.FillBounds
+        Column(
+            modifier = Modifier.align(Alignment.Center),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            var email by remember { mutableStateOf("") }
+            var password by remember { mutableStateOf("") }
+
+            Text(text = "LOG IN", style = MaterialTheme.typography.h1)
+
+            Spacer(modifier = Modifier.requiredHeight(32.dp))
+
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(56.dp)
+                    .padding(horizontal = 16.dp),
+                value = email,
+                onValueChange = {
+                    email = it
+                },
+                placeholder = {
+                    Text(text = "Email Address")
+                },
+                textStyle = MaterialTheme.typography.body1,
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = MaterialTheme.colors.surface
+                ),
+                singleLine = true,
             )
 
-            Column(
-                modifier = Modifier.align(Alignment.Center),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                var email by remember { mutableStateOf("") }
-                var password by remember { mutableStateOf("") }
+            Spacer(modifier = Modifier.requiredHeight(8.dp))
 
-                Text(text = "LOG IN", style = MaterialTheme.typography.h1)
+            TextField(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(56.dp)
+                    .padding(horizontal = 16.dp),
+                value = password,
+                onValueChange = {
+                    password = it
+                },
+                placeholder = {
+                    Text(text = "Password")
+                },
+                textStyle = MaterialTheme.typography.body1,
+                colors = TextFieldDefaults.textFieldColors(
+                    backgroundColor = MaterialTheme.colors.surface
+                ),
+                singleLine = true
+            )
 
-                Spacer(modifier = Modifier.requiredHeight(32.dp))
-
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .requiredHeight(56.dp)
-                        .padding(horizontal = 16.dp),
-                    value = email,
-                    onValueChange = {
-                        email = it
-                    },
-                    placeholder = {
-                        Text(text = "Email Address")
-                    },
-                    textStyle = MaterialTheme.typography.body1,
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.surface
-                    ),
-                    singleLine = true,
-                )
-
-                Spacer(modifier = Modifier.requiredHeight(8.dp))
-
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .requiredHeight(56.dp)
-                        .padding(horizontal = 16.dp),
-                    value = password,
-                    onValueChange = {
-                        password = it
-                    },
-                    placeholder = {
-                        Text(text = "Password")
-                    },
-                    textStyle = MaterialTheme.typography.body1,
-                    colors = TextFieldDefaults.textFieldColors(
-                        backgroundColor = MaterialTheme.colors.surface
-                    ),
-                    singleLine = true
-                )
-
-                Button(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .requiredHeight(72.dp)
-                        .padding(top = 8.dp)
-                        .padding(horizontal = 16.dp),
-                    onClick = {}
-                ) {
-                    Text(text = "LOG IN")
+            Button(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .requiredHeight(72.dp)
+                    .padding(top = 8.dp)
+                    .padding(horizontal = 16.dp),
+                onClick = {
+                    onLogin(email, password)
                 }
-
-                Text(
-                    text = "Don't have an account? Sign up",
-                    modifier = Modifier.paddingFromBaseline(top = 32.dp),
-                    style = MaterialTheme.typography.body1
-                )
+            ) {
+                Text(text = "LOG IN")
             }
+
+            Text(
+                text = "Don't have an account? Sign up",
+                modifier = Modifier.paddingFromBaseline(top = 32.dp),
+                style = MaterialTheme.typography.body1
+            )
         }
     }
 }
@@ -132,7 +130,10 @@ fun Login() {
 @Composable
 fun LoginPreviewLight() {
     MySootheTheme {
-        Login()
+        Login(
+            onLogin = { email, password ->
+            }
+        )
     }
 }
 
@@ -140,6 +141,6 @@ fun LoginPreviewLight() {
 @Composable
 fun LoginPreviewDark() {
     MySootheTheme(darkTheme = true) {
-        Login()
+        Login(onLogin = { email, password -> })
     }
 }

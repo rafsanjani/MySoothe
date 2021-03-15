@@ -17,13 +17,11 @@ package com.example.androiddevchallenge.ui.components
 
 import androidx.annotation.DrawableRes
 import androidx.compose.animation.ExperimentalAnimationApi
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -43,7 +41,6 @@ import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Scaffold
-import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
@@ -68,83 +65,78 @@ import com.example.androiddevchallenge.R
 import com.example.androiddevchallenge.ui.theme.MySootheTheme
 import com.example.androiddevchallenge.ui.theme.shapes
 
-@ExperimentalFoundationApi
-@ExperimentalAnimationApi
 @Composable
 fun Home() {
-    Surface(color = MaterialTheme.colors.background) {
-        Scaffold(
-            modifier = Modifier.fillMaxSize(),
-            floatingActionButton = {
-                FloatingActionButton(onClick = {}, backgroundColor = MaterialTheme.colors.primary) {
-                    Icon(
-                        imageVector = Icons.Default.PlayArrow,
-                        contentDescription = "Play Button",
-                    )
-                }
-            },
-            isFloatingActionButtonDocked = true,
-            floatingActionButtonPosition = FabPosition.Center,
-            bottomBar = {
-                BottomNavigation(
-                    elevation = 0.dp,
-                    modifier = Modifier
-                        .height(64.dp)
-                        .fillMaxWidth(),
-                    backgroundColor = MaterialTheme.colors.background
-                ) {
-                    BottomNavigationItem(
-                        selected = false,
-                        onClick = {},
-                        icon = {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.Spa,
-                                    contentDescription = null,
-                                )
-                                Text(
-                                    text = "HOME",
-                                    style = MaterialTheme.typography.caption.copy(
-                                        color = MaterialTheme.colors.onBackground
-                                    ),
-                                    modifier = Modifier.padding(start = 6.dp)
-                                )
-                            }
-                        }
-                    )
-
-                    BottomNavigationItem(
-                        selected = false,
-                        onClick = {},
-                        icon = {
-                            Column(
-                                horizontalAlignment = Alignment.CenterHorizontally,
-                            ) {
-                                Icon(
-                                    imageVector = Icons.Default.AccountCircle,
-                                    contentDescription = null,
-                                )
-                                Text(
-                                    text = "PROFILE",
-                                    style = MaterialTheme.typography.caption.copy(
-                                        color = MaterialTheme.colors.onBackground
-                                    ),
-                                    modifier = Modifier.padding(start = 6.dp)
-                                )
-                            }
-                        }
-                    )
-                }
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
+        floatingActionButton = {
+            FloatingActionButton(onClick = {}, backgroundColor = MaterialTheme.colors.primary) {
+                Icon(
+                    imageVector = Icons.Default.PlayArrow,
+                    contentDescription = "Play Button",
+                )
             }
-        ) {
-            Content()
+        },
+        isFloatingActionButtonDocked = true,
+        floatingActionButtonPosition = FabPosition.Center,
+        bottomBar = {
+            BottomNavigation(
+                elevation = 0.dp,
+                modifier = Modifier
+                    .height(64.dp)
+                    .fillMaxWidth(),
+                backgroundColor = MaterialTheme.colors.background
+            ) {
+                BottomNavigationItem(
+                    selected = false,
+                    onClick = {},
+                    icon = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Spa,
+                                contentDescription = null,
+                            )
+                            Text(
+                                text = "HOME",
+                                style = MaterialTheme.typography.caption.copy(
+                                    color = MaterialTheme.colors.onBackground
+                                ),
+                                modifier = Modifier.padding(start = 6.dp)
+                            )
+                        }
+                    }
+                )
+
+                BottomNavigationItem(
+                    selected = false,
+                    onClick = {},
+                    icon = {
+                        Column(
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.AccountCircle,
+                                contentDescription = null,
+                            )
+                            Text(
+                                text = "PROFILE",
+                                style = MaterialTheme.typography.caption.copy(
+                                    color = MaterialTheme.colors.onBackground
+                                ),
+                                modifier = Modifier.padding(start = 6.dp)
+                            )
+                        }
+                    }
+                )
+            }
         }
+    ) {
+        Content()
     }
 }
 
-@ExperimentalFoundationApi
 @Composable
 fun Content() {
     var searchQuery by remember { mutableStateOf("") }
@@ -282,7 +274,6 @@ fun Content() {
             activities = activities.filter { it.type == ActivityType.ALIGN_YOUR_MIND },
             title = "ALIGN YOUR MIND"
         )
-
     }
 }
 
@@ -315,8 +306,7 @@ fun SearchBar(
         colors = TextFieldDefaults.textFieldColors(
             backgroundColor = MaterialTheme.colors.surface
         ),
-
-        )
+    )
 }
 
 @Composable
@@ -337,8 +327,10 @@ fun FavoriteCollections(modifier: Modifier = Modifier, activities: List<Activity
 fun CircularActivityList(modifier: Modifier = Modifier, activities: List<Activity>, title: String) {
     Column(modifier = modifier) {
         Text(
-            text = title, modifier = Modifier
-                .paddingFromBaseline(48.dp), style = MaterialTheme.typography.h2
+            text = title,
+            modifier = Modifier
+                .paddingFromBaseline(48.dp),
+            style = MaterialTheme.typography.h2
         )
 
         Column {
@@ -370,16 +362,16 @@ fun CircularActivityList(modifier: Modifier = Modifier, activities: List<Activit
 @Composable
 fun RectActivityCard(activity: Activity) {
     Card(
+        elevation = 0.dp,
         modifier = Modifier
             .requiredWidth(192.dp)
             .requiredHeight(56.dp),
-        shape = shapes.small
+        shape = shapes.small,
     ) {
         Row {
             Image(
                 modifier = Modifier
-                    .requiredHeight(56.dp)
-                    .aspectRatio(1f),
+                    .requiredSize(56.dp),
                 painter = painterResource(id = activity.image),
                 contentDescription = activity.name,
                 contentScale = ContentScale.FillBounds
@@ -394,7 +386,6 @@ fun RectActivityCard(activity: Activity) {
     }
 }
 
-@ExperimentalFoundationApi
 @Composable()
 @ExperimentalAnimationApi
 @Preview("Light Theme", widthDp = 360, heightDp = 640)
@@ -404,7 +395,6 @@ fun HomePreviewLight() {
     }
 }
 
-@ExperimentalFoundationApi
 @ExperimentalAnimationApi
 @Preview("Dark Theme", widthDp = 360, heightDp = 640)
 @Composable
@@ -413,7 +403,6 @@ fun HomePreviewDark() {
         Home()
     }
 }
-
 
 data class Activity(
     val name: String,
